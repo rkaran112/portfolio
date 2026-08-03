@@ -1,65 +1,70 @@
-import Image from "next/image";
+import { Backdrop, NoiseFilter } from "@/components/aura/Backdrop";
+import { AlsoBuilt } from "@/components/sections/AlsoBuilt";
+import { Background } from "@/components/sections/Background";
+import { BuiltWith } from "@/components/sections/BuiltWith";
+import { FinalCTA } from "@/components/sections/FinalCTA";
+import { Hero } from "@/components/sections/Hero";
+import { Navbar } from "@/components/sections/Navbar";
+import { ProjectWindow } from "@/components/sections/ProjectWindow";
+import { SelectedWork } from "@/components/sections/SelectedWork";
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, LOCATION, roles } from "@/lib/content";
+
+const footerLink = "transition-colors hover:text-white";
 
 export default function Home() {
+  // overflow-x-clip rather than -hidden: `hidden` turns this element into a
+  // scroll container, which breaks smooth scrolling and scroll-margin anchors.
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="relative min-h-screen overflow-x-clip bg-[#0c0c0c] text-white">
+      <Backdrop />
+      <NoiseFilter />
+
+      <a
+        href="#work"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:text-black"
+      >
+        Skip to the work
+      </a>
+
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <ProjectWindow />
+        <SelectedWork />
+        <BuiltWith />
+        <Background />
+        <AlsoBuilt />
+        <FinalCTA />
+
+        <footer className="mx-auto max-w-6xl border-t border-white/10 px-6 py-10">
+          <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 text-xs text-white/60">
+            <span>
+              R.Karan · {roles} · {LOCATION}
+            </span>
+            <div className="flex flex-wrap gap-6">
+              <a className={footerLink} href={`mailto:${EMAIL}`}>
+                {EMAIL}
+              </a>
+              <a
+                className={footerLink}
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                LinkedIn ↗
+              </a>
+              <a
+                className={footerLink}
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }

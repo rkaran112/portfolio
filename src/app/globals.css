@@ -1,26 +1,183 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-brand: #3d81e3;
+  --color-canvas: #0c0c0c;
+  --color-ice: #a4f4fd;
+  --color-cyan: #00d2ff;
+  --color-deep: #0b2551;
+
+  /* Semantic aliases the instrument components read. */
+  --color-ink: #ffffff;
+  --color-ink-dim: rgba(255, 255, 255, 0.6);
+
+  --font-display: var(--font-sans-family), ui-sans-serif, system-ui, sans-serif;
+  /* Numerals keep tabular figures so animated counters never jitter. */
+  --font-num: var(--font-num-family), ui-monospace, "SFMono-Regular", monospace;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans-family);
+  --font-mono: var(--font-num-family);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Registry components dropped in later land on-palette. */
+:root,
+.dark {
+  --background: #0c0c0c;
+  --foreground: #ffffff;
+  --card: rgba(255, 255, 255, 0.01);
+  --card-foreground: #ffffff;
+  --popover: #0e1014;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: rgba(255, 255, 255, 0.05);
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: rgba(255, 255, 255, 0.6);
+  --accent: #3d81e3;
+  --accent-foreground: #ffffff;
+  --destructive: #ff5f57;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #3d81e3;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  html,
+  body {
+    font-family: var(--font-sans-family), "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Nav and menu-bar links glide instead of teleporting. */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Anchor targets clear the sticky chrome instead of landing under it. */
+  [id] {
+    scroll-margin-top: 88px;
+  }
+
+  body {
+    background-color: #0c0c0c;
+    color: #ffffff;
+  }
+
+  ::selection {
+    background: rgba(61, 129, 227, 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid #3d81e3;
+    outline-offset: 3px;
+  }
+
+  /* Tailwind v4's Preflight sets buttons to cursor:default, which makes
+     interactive controls read as static text. Put the pointer back. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="switch"],
+  a[href],
+  summary {
+    cursor: pointer;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --------------------------------------------------------------------------
+   Liquid glass — the card treatment used across the page.
+   -------------------------------------------------------------------------- */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Shiny gradient headline.
+   -------------------------------------------------------------------------- */
+@keyframes shiny {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shiny {
+  animation: shiny 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-shiny {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
