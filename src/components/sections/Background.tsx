@@ -82,7 +82,7 @@ export function Background() {
         }}
       />
 
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-page px-6 sm:px-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -8,7 +8,7 @@ const STACK = [...new Set(flagship.flatMap((project) => project.tech))];
 
 export function BuiltWith() {
   return (
-    <section id="stack" className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+    <section id="stack" className="mx-auto max-w-page px-6 sm:px-10 py-16 md:py-20">
       <p className="text-center text-xs tracking-widest text-white/60 uppercase">
         Built with, across the projects on this page
       </p>

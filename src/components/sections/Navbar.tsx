@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Menu } from "lucide-react";
-import { LogoMark, PrimaryButton } from "@/components/aura/Primitives";
+import { PrimaryButton } from "@/components/aura/Primitives";
 import { GITHUB_URL } from "@/lib/content";
 
 const LINKS = [
@@ -19,16 +19,11 @@ export function Navbar() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5"
+      className="relative mx-auto flex max-w-page items-center justify-end px-6 py-5 sm:px-10"
     >
-      {/* The spec's mark is wordless. On a portfolio the name has to be
-          readable, so it sits beside the mark. */}
-      <a href="#top" className="flex items-center gap-3">
-        <LogoMark className="h-8 w-8 text-white" />
-        <span className="text-sm font-semibold tracking-tight text-white">R.Karan</span>
-      </a>
-
-      <div className="hidden gap-8 md:flex">
+      {/* No wordmark: the hero states the name a moment later. Links stay
+          optically centred by taking them out of the flex flow. */}
+      <div className="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex">
         {LINKS.map((link, i) => (
           <motion.a
             key={link.label}

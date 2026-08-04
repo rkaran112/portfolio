@@ -6,7 +6,7 @@ import { EMAIL, GITHUB_URL, LINKEDIN_URL, LOCATION } from "@/lib/content";
 
 export function FinalCTA() {
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-6 py-20 md:py-32">
+    <section id="contact" className="mx-auto max-w-page px-6 sm:px-10 py-20 md:py-32">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

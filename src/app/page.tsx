@@ -36,7 +36,7 @@ export default function Home() {
         <AlsoBuilt />
         <FinalCTA />
 
-        <footer className="mx-auto max-w-6xl border-t border-white/10 px-6 py-10">
+        <footer className="mx-auto max-w-page border-t border-white/10 px-6 py-10">
           <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 text-xs text-white/60">
             <span>
               R.Karan · {roles} · {LOCATION}

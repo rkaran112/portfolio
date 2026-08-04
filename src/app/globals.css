@@ -5,6 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  /* One source of truth for the page column. The backdrop guide lines read the
+     same value, so they can never drift from the content edges. */
+  --container-page: 90rem;
+
   --color-brand: #3d81e3;
   --color-canvas: #0c0c0c;
   --color-ice: #a4f4fd;

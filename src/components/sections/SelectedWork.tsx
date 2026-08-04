@@ -60,7 +60,7 @@ function ProjectSection({ project, flip }: { project: Project; flip: boolean }) 
         }}
       />
 
-      <div className="mx-auto grid max-w-6xl items-start gap-10 px-6 md:gap-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+      <div className="mx-auto grid max-w-page items-start gap-10 px-6 sm:px-10 md:gap-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ function ProjectSection({ project, flip }: { project: Project; flip: boolean }) 
 export function SelectedWork() {
   return (
     <div id="benchmarks">
-      <div className="mx-auto max-w-6xl px-6 pt-16 pb-4 text-center md:pt-24">
+      <div className="mx-auto max-w-page px-6 sm:px-10 pt-16 pb-4 text-center md:pt-24">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

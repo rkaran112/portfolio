@@ -5,7 +5,7 @@ import { supporting } from "@/lib/content";
 
 export function AlsoBuilt() {
   return (
-    <section id="also-built" className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <section id="also-built" className="mx-auto max-w-page px-6 sm:px-10 py-20 md:py-28">
       <h2 className="text-3xl leading-[1.02] font-semibold tracking-tight md:text-4xl">
         Also built.
       </h2>

@@ -1,10 +1,13 @@
 const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4";
 
+/** Guide lines track the page column, so they cannot drift from its edges. */
+const guide = "pointer-events-none fixed inset-y-0 z-[5] hidden w-px bg-white/10 md:block";
+
 /**
- * Fixed full-screen loop behind everything, plus the two container guide lines
- * at the 36rem edges. The video is decorative — if the host ever stops serving
- * it, the #0c0c0c canvas underneath is the fallback.
+ * Fixed full-screen loop behind everything, plus the two container guide lines.
+ * The video is decorative: if the host ever stops serving it, the #0c0c0c
+ * canvas underneath is the fallback.
  */
 export function Backdrop() {
   return (
@@ -24,17 +27,26 @@ export function Backdrop() {
       {/* Scrim. The raw video has bright passages that white body copy cannot
           survive, so everything reads against a controlled floor instead. */}
       <div className="pointer-events-none fixed inset-0 z-[1] bg-[#0c0c0c]/78" />
+      {/* Vignette. Softened at the outer stop: the copy is centred, so heavy
+          darkening out here bought no legibility and made a wide screen look
+          like a narrow column with black bars. */}
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-[2]"
         style={{
           background:
-            "radial-gradient(120% 80% at 50% 40%, transparent 0%, rgba(12,12,12,0.55) 70%, rgba(12,12,12,0.85) 100%)",
+            "radial-gradient(130% 90% at 50% 40%, transparent 0%, rgba(12,12,12,0.35) 70%, rgba(12,12,12,0.55) 100%)",
         }}
       />
 
-      <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[5] hidden w-px -translate-x-[calc(50%+36rem)] bg-white/10 md:block" />
-      <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[5] hidden w-px translate-x-[calc(-50%+36rem)] bg-white/10 md:block" />
+      <div
+        className={guide}
+        style={{ left: "max(0px, calc(50% - var(--container-page) / 2))" }}
+      />
+      <div
+        className={guide}
+        style={{ left: "min(calc(100% - 1px), calc(50% + var(--container-page) / 2))" }}
+      />
     </>
   );
 }
