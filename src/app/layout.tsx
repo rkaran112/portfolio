@@ -20,9 +20,24 @@ const num = Martian_Mono({
   weight: ["400", "500", "700"],
 });
 
-// Set NEXT_PUBLIC_SITE_URL in the Vercel project once the domain is known, so
-// share cards resolve to absolute URLs.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rkaran.vercel.app";
+const FALLBACK_SITE_URL = "https://portfolio-karan-r.vercel.app";
+
+/**
+ * Set NEXT_PUBLIC_SITE_URL in the Vercel project so share cards resolve to
+ * absolute URLs. Parsed defensively: a stray BOM or newline from however the
+ * variable was entered should not be able to fail the whole build.
+ */
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.replace(/^﻿/, "").trim();
+  if (!raw) return FALLBACK_SITE_URL;
+  try {
+    return new URL(raw).origin;
+  } catch {
+    return FALLBACK_SITE_URL;
+  }
+}
+
+const siteUrl = resolveSiteUrl();
 
 const title = "R.Karan · systems and performance engineering";
 const description =
