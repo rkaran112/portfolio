@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Martian_Mono } from "next/font/google";
+import { Backdrop, NoiseFilter } from "@/components/aura/Backdrop";
+import { SiteFooter } from "@/components/sections/SiteFooter";
 import "./globals.css";
 
 // Stand-in for the PolySans optical-size family. One typeface, weight 400 for
@@ -60,7 +62,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${sans.variable} ${num.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* overflow-x-clip rather than -hidden: `hidden` turns this element into
+            a scroll container, which breaks smooth scrolling and scroll-margin. */}
+        <div className="relative min-h-screen overflow-x-clip bg-[#0c0c0c] text-white">
+          <Backdrop />
+          <NoiseFilter />
+          <div className="relative z-10">
+            {children}
+            <SiteFooter />
+          </div>
+        </div>
+      </body>
     </html>
   );
 }

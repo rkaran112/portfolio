@@ -29,10 +29,9 @@ export function FinalCTA() {
             <span className="block">Want the long version?</span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-lg text-sm leading-[1.7] text-white/75">
-            I am happy to talk through any of these in detail: what the problem actually was,
-            which approaches were tried first, and where each one still falls short. The
-            failures are usually the more interesting half.
+          <p className="mx-auto mt-6 max-w-md text-sm leading-[1.7] text-white/75">
+            Happy to talk through what was tried first, and where each project still falls
+            short.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">

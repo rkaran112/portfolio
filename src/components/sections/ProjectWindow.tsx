@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { Database, FileText, LayoutGrid, Workflow } from "lucide-react";
-import { FenceTimeline } from "@/components/instruments/FenceTimeline";
-import { LatencyBars } from "@/components/instruments/LatencyBars";
-import { TestTicks } from "@/components/instruments/TestTicks";
-import { VirtualStrip } from "@/components/instruments/VirtualStrip";
+import { ProjectDemo } from "./ProjectDemo";
 import { flagship } from "@/lib/content";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -15,20 +13,6 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   relay: Workflow,
   "resume-tailor": FileText,
 };
-
-/** Each project's demo, running for real rather than as a screenshot. */
-function Demo({ slug, accent }: { slug: string; accent: string }) {
-  switch (slug) {
-    case "lattice":
-      return <VirtualStrip accent={accent} />;
-    case "cacheopt":
-      return <LatencyBars accent={accent} />;
-    case "relay":
-      return <FenceTimeline accent={accent} />;
-    default:
-      return <TestTicks count={96} label="Test suite" accent={accent} />;
-  }
-}
 
 export function ProjectWindow() {
   const [activeSlug, setActiveSlug] = useState(flagship[0].slug);
@@ -105,7 +89,7 @@ export function ProjectWindow() {
 
           {/* Live demo */}
           <div className="col-span-12 border-white/10 p-5 md:col-span-7 lg:col-span-6 lg:border-r">
-            <Demo key={active.slug} slug={active.slug} accent={active.accent} />
+            <ProjectDemo key={active.slug} slug={active.slug} accent={active.accent} />
           </div>
 
           {/* Orientation, not the full write-up. That lives further down. */}
@@ -123,16 +107,16 @@ export function ProjectWindow() {
               ))}
             </div>
 
-            <a
-              href={`#project-${active.slug}`}
+            <Link
+              href={`/projects/${active.slug}`}
               className="group mt-6 inline-flex items-center gap-1.5 text-xs transition-colors"
               style={{ color: active.accent }}
             >
               Problem, approach, outcome
-              <span aria-hidden className="transition-transform group-hover:translate-y-0.5">
-                ↓
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                →
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </motion.div>

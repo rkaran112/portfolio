@@ -9,10 +9,7 @@ export function AlsoBuilt() {
       <h2 className="text-3xl leading-[1.02] font-semibold tracking-tight md:text-4xl">
         Also built.
       </h2>
-      <p className="mt-4 max-w-lg text-base leading-[1.6] text-white/75">
-        Smaller projects, listed as they are. Where a repo is not public yet the card says so
-        instead of linking somewhere dead.
-      </p>
+      <p className="mt-4 max-w-md text-base text-white/65">Smaller projects, listed as they are.</p>
 
       <ul className="mt-12 grid gap-4 sm:grid-cols-2">
         {supporting.map((item, i) => (

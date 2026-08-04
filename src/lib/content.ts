@@ -22,6 +22,8 @@ export interface Project {
   name: string;
   /** One line on what it is. */
   hook: string;
+  /** Three scannable lines for the main page. The detail page carries the prose. */
+  keyPoints: string[];
   /** Why it exists. The situation that made it worth building. */
   problem: string;
   /** How it works. The design decision that answers the problem. */
@@ -36,14 +38,18 @@ export interface Project {
 
 export const roles = "SDE · Full-stack · Data engineering";
 
-export const intro =
-  "I build systems and study how they behave under load. Each project below starts with a problem worth solving, explains the approach taken, and reports what actually came out of it.";
+export const intro = "I build systems and study how they behave under load.";
 
 export const flagship: Project[] = [
   {
     slug: "lattice",
     name: "lattice",
     hook: "A spreadsheet-grade data grid for a million rows.",
+    keyPoints: [
+      "1,000,000 rows over a fixed pool of ~560 DOM nodes",
+      "Formula graph on a Web Worker, so an edit touches 33 of 10,000 nodes",
+      "Recalc 316ms to 1.0ms, repaints at 3.4ms, on a low-end machine",
+    ],
     problem:
       "Browser data grids fall over well before a million rows. The DOM cannot hold that many nodes at once, and a naive spreadsheet recalculates every formula on each edit, so typing in a single cell stalls the whole sheet.",
     approach:
@@ -58,6 +64,11 @@ export const flagship: Project[] = [
     slug: "cacheopt",
     name: "cacheopt",
     hook: "Cost-based query routing across a three-tier cache.",
+    keyPoints: [
+      "Estimates each query's cost the way a planner would, then picks the tier",
+      "Rewrites a query when a cheaper shape exists",
+      "2.74x throughput at 10M rows, p95 126ms to 31ms",
+    ],
     problem:
       "A three-tier cache only helps if queries reach the right tier. Sending everything to the fastest store wastes memory, sending everything to the slowest one wastes time, and most systems choose with a static rule that ignores what a query actually costs.",
     approach:
@@ -72,6 +83,11 @@ export const flagship: Project[] = [
     slug: "relay",
     name: "relay",
     hook: "A Postgres-backed task queue with exactly-once side effects.",
+    keyPoints: [
+      "Fencing tokens reject writes from a worker that already died",
+      "Transactional outbox keeps the commit and the effect in one transaction",
+      "22 tests against real Postgres, chaos harness with a negative control",
+    ],
     problem:
       "Most task queues promise at-least-once delivery, which means a side effect can run twice. When that side effect charges a card or sends an email, the duplicate is the bug. The case that breaks naive designs is a worker that dies mid-task while still holding a lease.",
     approach:
@@ -86,6 +102,11 @@ export const flagship: Project[] = [
     slug: "resume-tailor",
     name: "resume-tailor",
     hook: "Deterministic bullet matching that renders a tailored resume to PDF.",
+    keyPoints: [
+      "A fixed matching pass scores each bullet against the posting",
+      "No sampling anywhere, so the same input always yields the same PDF",
+      "96 tests hold that property in place",
+    ],
     problem:
       "Tailoring a resume to each posting by hand is slow and inconsistent. Language-model rewrites are fast but non-deterministic, so the same input produces a different document every run, and nothing about it can be reviewed or relied on.",
     approach:
