@@ -5,4 +5,4 @@ lucide-react. Each project is written up the same way: the problem that made it
 worth building, the approach taken, and what came out of it. The demos in the app
 window run for real rather than being screenshots.
 
-Live Link: https://vercel.com/karan-8bbf/portfolio
+Live Link: https://portfolio-karan-r.vercel.app/
