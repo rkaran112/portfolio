@@ -18,17 +18,8 @@ function Card({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.6, delay: (index % 2) * 0.08, ease: EASE }}
-      whileHover={{ y: -4 }}
-      className="liquid-glass group relative h-full rounded-2xl"
+      className="liquid-glass hover-lift group relative h-full rounded-2xl border border-transparent hover:border-white/20"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(80% 60% at 20% 0%, ${project.accent}1a, transparent 70%)`,
-        }}
-      />
-
       <Link
         href={`/projects/${project.slug}`}
         className="relative flex h-full flex-col p-6 focus-visible:outline-none"
@@ -36,7 +27,7 @@ function Card({ project, index }: { project: Project; index: number }) {
         <div className="flex items-center gap-2.5">
           <span
             aria-hidden
-            className="h-2 w-2 rounded-full transition-transform duration-500 group-hover:scale-150"
+            className="h-2 w-2 rounded-full"
             style={{ background: project.accent }}
           />
           <span className="text-[11px] tracking-widest text-white/55 uppercase">
@@ -78,7 +69,7 @@ function Card({ project, index }: { project: Project; index: number }) {
           style={{ color: project.accent }}
         >
           Read the full write-up
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="nudge h-4 w-4" />
         </span>
       </Link>
     </motion.div>

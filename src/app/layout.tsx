@@ -83,7 +83,7 @@ export default function RootLayout({
         <div className="relative min-h-screen overflow-x-clip bg-[#0c0c0c] text-white">
           <Backdrop />
           <NoiseFilter />
-          <div className="relative z-10">
+          <div className="relative z-40">
             {children}
             <SiteFooter />
           </div>

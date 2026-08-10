@@ -54,21 +54,17 @@ export function ProjectWindow() {
                     type="button"
                     onClick={() => setActiveSlug(project.slug)}
                     aria-pressed={isActive}
-                    className={`flex shrink-0 cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2.5 text-left text-xs transition-all lg:w-full ${
+                    className={`hover-lift flex shrink-0 cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2.5 text-left text-xs lg:w-full ${
                       isActive
                         ? "bg-white/10 text-white"
-                        : "border-white/10 text-white/70 hover:-translate-y-px hover:border-white/25 hover:bg-white/5 hover:text-white"
+                        : "border-white/10 text-white/70 hover:border-white/25 hover:bg-white/5 hover:text-white"
                     }`}
                     style={isActive ? { borderColor: project.accent } : undefined}
                   >
                     <span
                       aria-hidden
-                      className="h-2 w-2 shrink-0 rounded-full transition-transform"
-                      style={{
-                        background: project.accent,
-                        opacity: isActive ? 1 : 0.5,
-                        boxShadow: isActive ? `0 0 8px ${project.accent}` : undefined,
-                      }}
+                      className="h-2 w-2 shrink-0 rounded-full"
+                      style={{ background: project.accent, opacity: isActive ? 1 : 0.5 }}
                     />
                     <Icon className="h-3.5 w-3.5 shrink-0" />
                     <span className="truncate">{project.name}</span>
@@ -113,7 +109,7 @@ export function ProjectWindow() {
               style={{ color: active.accent }}
             >
               Problem, approach, outcome
-              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+              <span aria-hidden className="nudge">
                 →
               </span>
             </Link>

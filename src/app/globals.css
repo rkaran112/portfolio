@@ -19,6 +19,13 @@
   --color-ink: #ffffff;
   --color-ink-dim: rgba(255, 255, 255, 0.6);
 
+  /* One easing and one duration for every hover in the site, so nothing
+     animates at a different speed to its neighbour. */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --hover-duration: 240ms;
+  --hover-lift: -3px;
+  --arrow-nudge: 4px;
+
   --font-display: var(--font-sans-family), ui-sans-serif, system-ui, sans-serif;
   /* Numerals keep tabular figures so animated counters never jitter. */
   --font-num: var(--font-num-family), ui-monospace, "SFMono-Regular", monospace;
@@ -96,6 +103,38 @@
     color: #ffffff;
   }
 
+  /* One scrollbar treatment everywhere. Without this the page scrollbar and
+     every inner scroller render in the OS default light chrome, which reads as
+     a bright seam against a black page. */
+  html {
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.32);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
   ::selection {
     background: rgba(61, 129, 227, 0.3);
   }
@@ -166,6 +205,41 @@
 
 .animate-shiny {
   animation: shiny 6s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Shared interaction states. Every hoverable surface uses these, so a card, a
+   picker button and a tag all lift by the same amount over the same duration.
+   -------------------------------------------------------------------------- */
+.hover-lift {
+  transition:
+    transform var(--hover-duration) var(--ease-out-quint),
+    border-color var(--hover-duration) var(--ease-out-quint),
+    background-color var(--hover-duration) var(--ease-out-quint);
+}
+
+.hover-lift:hover {
+  transform: translateY(var(--hover-lift));
+}
+
+.nudge {
+  transition: transform var(--hover-duration) var(--ease-out-quint);
+}
+
+.group:hover .nudge {
+  transform: translateX(var(--arrow-nudge));
+}
+
+.group:hover .nudge-back {
+  transform: translateX(calc(var(--arrow-nudge) * -1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift:hover,
+  .group:hover .nudge,
+  .group:hover .nudge-back {
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

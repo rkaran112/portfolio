@@ -64,16 +64,15 @@ export function NodeGrid({ run }: { run: boolean }) {
         ctx.fillRect(x, y, dot, dot);
       }
 
+      // Flat fill, no glow. A blurred halo on 33 dots turned the grid into a
+      // smear at small sizes and read as decoration rather than data.
       ctx.fillStyle = "#00d2ff";
-      ctx.shadowColor = "rgba(0,210,255,0.8)";
-      ctx.shadowBlur = 6;
       for (let i = 0; i < litCount; i++) {
         const index = LIT[i];
         const x = offsetX + (index % SIDE) * cell;
         const y = offsetY + Math.floor(index / SIDE) * cell;
         ctx.fillRect(x - dot * 0.35, y - dot * 0.35, dot * 1.7, dot * 1.7);
       }
-      ctx.shadowBlur = 0;
     };
 
     if (reduced || !run) {

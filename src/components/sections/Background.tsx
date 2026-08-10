@@ -54,12 +54,11 @@ function Entry({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
-      whileHover={{ y: -3 }}
-      className="liquid-glass group/entry relative rounded-2xl p-5"
+      className="liquid-glass hover-lift relative rounded-2xl p-5"
     >
       <span
         aria-hidden
-        className="absolute top-7 -left-[26px] h-2 w-2 rounded-full transition-transform duration-500 group-hover/entry:scale-150"
+        className="absolute top-7 -left-[26px] h-2 w-2 rounded-full"
         style={{ background: accent }}
       />
       <p className="font-num text-[11px] tracking-tight text-white/60">{period}</p>

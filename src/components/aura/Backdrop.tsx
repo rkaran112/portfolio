@@ -1,8 +1,12 @@
 const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4";
 
-/** Guide lines track the page column, so they cannot drift from its edges. */
-const guide = "pointer-events-none fixed inset-y-0 z-[5] hidden w-px bg-white/10 md:block";
+/**
+ * Stacking order for the whole site, in one place:
+ *   z-0  video   z-10 scrim   z-20 vignette   z-30 guides
+ *   z-40 content (set on the wrapper in layout.tsx)   z-50 skip link
+ */
+const guide = "pointer-events-none fixed inset-y-0 z-30 hidden w-px bg-white/10 md:block";
 
 /**
  * Fixed full-screen loop behind everything, plus the two container guide lines.
@@ -26,13 +30,13 @@ export function Backdrop() {
 
       {/* Scrim. The raw video has bright passages that white body copy cannot
           survive, so everything reads against a controlled floor instead. */}
-      <div className="pointer-events-none fixed inset-0 z-[1] bg-[#0c0c0c]/78" />
+      <div className="pointer-events-none fixed inset-0 z-10 bg-[#0c0c0c]/78" />
       {/* Vignette. Softened at the outer stop: the copy is centred, so heavy
           darkening out here bought no legibility and made a wide screen look
           like a narrow column with black bars. */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[2]"
+        className="pointer-events-none fixed inset-0 z-20"
         style={{
           background:
             "radial-gradient(130% 90% at 50% 40%, transparent 0%, rgba(12,12,12,0.35) 70%, rgba(12,12,12,0.55) 100%)",
