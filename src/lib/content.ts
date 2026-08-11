@@ -141,6 +141,7 @@ export const flagship: Project[] = [
       "The same input always produces the same document, which makes the output reviewable and diffable. 96 tests hold that property in place.",
     tech: ["Deterministic pipeline", "PDF rendering"],
     repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/resume-tailor` },
+    demo: "https://resume-tailor-frontend-lxol.onrender.com",
     accent: "#A4F4FD",
   },
 ];
