@@ -39,7 +39,7 @@ export interface Project {
   accent: string;
 }
 
-export const roles = "SDE · Full-stack · Data engineering";
+export const roles = "SDE · Full-stack";
 
 export const intro = "I build systems and study how they behave under load.";
 
@@ -100,11 +100,28 @@ export const flagship: Project[] = [
     outcome:
       "A late write from a dead worker is rejected because its token is older than the current lease, so the effect lands exactly once. 22 tests run against a real Postgres, and the codebase stays clean under ruff and mypy --strict.",
     tech: ["Python", "Postgres", "Redis", "FastAPI", "OpenTelemetry"],
-    // Repo is PRIVATE, so it 404s for anyone but the owner. Change kind to
-    // "public" the moment it is opened up; the url is already correct.
-    repo: { kind: "pending", url: `https://github.com/${GITHUB_HANDLE}/relay` },
+    repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/relay` },
     demo: "https://relay-7b2o.onrender.com/",
     accent: "#f5b544",
+  },
+  {
+    slug: "quorum",
+    name: "quorum",
+    hook: "Raft consensus written from scratch, behind a linearizable key-value store.",
+    keyPoints: [
+      "Raft implemented from scratch, with no consensus library underneath",
+      "The core is a pure function, so a whole cluster runs in one process",
+      "147 tests in 25s, about 22,000 checked operations, 0 violations",
+    ],
+    problem:
+      "Consensus is the piece most teams import rather than understand, and its failure modes only show up under partition, reorder and crash. Testing it is the harder half: a real cluster is slow, non-deterministic, and rarely reproduces the bug being chased.",
+    approach:
+      "The Raft core is written as a pure function. It never reads a clock, opens a socket or touches disk; it takes a message and the current time and returns new state plus outgoing messages, and a test enforces that purity. Every bit of I/O lives in a separate driver, which is what lets an entire cluster run inside one process under a seeded scheduler that can delay, drop, reorder and partition at will.",
+    outcome:
+      "147 tests run a real cluster in-process in about 25 seconds, asserting all four safety properties continuously. A Jepsen-style linearizability checker replays roughly 22,000 operations across chaos scenarios with zero violations, and all four negative controls are flagged as expected. Re-election settles at p50 235ms and p95 430ms against a 150 to 300ms election timeout.",
+    tech: ["Python", "gRPC", "Docker", "pytest", "mypy --strict"],
+    repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/quorum` },
+    accent: "#b39dff",
   },
   {
     slug: "resume-tailor",
@@ -122,8 +139,7 @@ export const flagship: Project[] = [
     outcome:
       "The same input always produces the same document, which makes the output reviewable and diffable. 96 tests hold that property in place.",
     tech: ["Deterministic pipeline", "PDF rendering"],
-    // Also PRIVATE. Same deal: flip kind to "public" once it is opened up.
-    repo: { kind: "pending", url: `https://github.com/${GITHUB_HANDLE}/resume-tailor` },
+    repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/resume-tailor` },
     accent: "#A4F4FD",
   },
 ];

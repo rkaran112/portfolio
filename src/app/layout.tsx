@@ -42,7 +42,7 @@ const siteUrl = resolveSiteUrl();
 
 const title = "R.Karan.Portfolio website";
 const description =
-  "Projects by R.Karan, each written up as a problem, an approach and an outcome: cost-based cache routing in cacheopt, a million-row virtualized grid in lattice, and exactly-once side effects in relay.";
+  "Projects by R.Karan, each written up as a problem, an approach and an outcome: Raft from scratch in quorum, a million-row virtualized grid in lattice, cost-based cache routing in cacheopt, and exactly-once side effects in relay.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     "software engineer",
     "performance engineering",
     "distributed systems",
-    "data engineering",
+    "distributed consensus",
     "full-stack",
     "portfolio",
   ],

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Database, FileText, LayoutGrid, Workflow } from "lucide-react";
+import { Database, FileText, LayoutGrid, Network, Workflow } from "lucide-react";
 import { ProjectDemo } from "./ProjectDemo";
 import { flagship } from "@/lib/content";
 
@@ -11,6 +11,7 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   lattice: LayoutGrid,
   cacheopt: Database,
   relay: Workflow,
+  quorum: Network,
   "resume-tailor": FileText,
 };
 

@@ -24,7 +24,7 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", gap: 12 }}>
-          {["#00d2ff", "#4ade80", "#f5b544", "#a4f4fd"].map((accent) => (
+          {["#00d2ff", "#4ade80", "#f5b544", "#b39dff", "#a4f4fd"].map((accent) => (
             <div
               key={accent}
               style={{ width: 40, height: 6, borderRadius: 3, background: accent }}
@@ -37,12 +37,12 @@ export default function Image() {
             R.Karan
           </div>
           <div style={{ fontSize: 34, color: "rgba(255,255,255,0.65)", marginTop: 28 }}>
-            SDE · Full-stack · Data engineering
+            SDE · Full-stack
           </div>
         </div>
 
         <div style={{ fontSize: 26, color: "rgba(255,255,255,0.5)" }}>
-          lattice · cacheopt · relay · resume-tailor
+          lattice · cacheopt · relay · quorum · resume-tailor
         </div>
       </div>
     ),
