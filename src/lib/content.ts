@@ -121,6 +121,7 @@ export const flagship: Project[] = [
       "147 tests run a real cluster in-process in about 25 seconds, asserting all four safety properties continuously. A Jepsen-style linearizability checker replays roughly 22,000 operations across chaos scenarios with zero violations, and all four negative controls are flagged as expected. Re-election settles at p50 235ms and p95 430ms against a 150 to 300ms election timeout.",
     tech: ["Python", "gRPC", "Docker", "pytest", "mypy --strict"],
     repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/quorum` },
+    demo: "https://rkaran112.github.io/quorum/#numbers",
     accent: "#b39dff",
   },
   {
