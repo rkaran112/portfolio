@@ -76,20 +76,33 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
           ))}
         </div>
 
-        {project.repo.kind === "public" ? (
-          <a
-            href={project.repo.url}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-white/90"
-          >
-            Read the source ↗
-          </a>
-        ) : (
-          <span className="mt-8 inline-flex rounded-full border border-dashed border-white/25 px-5 py-2.5 text-sm text-white/55">
-            Repo publishing pending
-          </span>
-        )}
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          {project.demo ? (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-white/90"
+            >
+              Open the live app ↗
+            </a>
+          ) : null}
+
+          {project.repo.kind === "public" ? (
+            <a
+              href={project.repo.url}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm text-white transition-colors hover:bg-white/10"
+            >
+              Read the source ↗
+            </a>
+          ) : (
+            <span className="inline-flex rounded-full border border-dashed border-white/25 px-5 py-2.5 text-sm text-white/55">
+              Repo publishing pending
+            </span>
+          )}
+        </div>
       </header>
 
       <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">

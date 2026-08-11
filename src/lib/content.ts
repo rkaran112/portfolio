@@ -14,7 +14,8 @@ export const LOCATION = "Bengaluru, Karnataka";
 
 export type RepoState =
   | { kind: "public"; url: string }
-  | { kind: "pending" }
+  /** Repo exists but is private. `url` is held ready; nothing renders it. */
+  | { kind: "pending"; url?: string }
   | { kind: "in-progress" };
 
 export interface Project {
@@ -32,6 +33,8 @@ export interface Project {
   outcome: string;
   tech: string[];
   repo: RepoState;
+  /** Deployed instance, where one is running. */
+  demo?: string;
   /** Drives the sidebar dot and this project's chart colour. */
   accent: string;
 }
@@ -57,7 +60,8 @@ export const flagship: Project[] = [
     outcome:
       "A million rows scroll inside a steady frame budget, and an incremental recalc touches 33 of 10,000 nodes instead of all of them. Recalc time fell from 316ms to 1.0ms with repaints at 3.4ms, measured on a deliberately low-end machine with no GPU acceleration.",
     tech: ["TypeScript", "Vite", "Web Worker", "Playwright"],
-    repo: { kind: "pending" },
+    repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/lattice` },
+    demo: "https://lattice-omega-one.vercel.app/",
     accent: "#00d2ff",
   },
   {
@@ -77,6 +81,7 @@ export const flagship: Project[] = [
       "Throughput rose 2.74 times at 10M rows, and p95 latency fell from 126ms to 31ms. p95 rather than mean, because the tail is the number that wakes somebody up.",
     tech: ["SQL", "Redis", "DuckDB", "Query rewriting"],
     repo: { kind: "public", url: `https://github.com/${GITHUB_HANDLE}/cacheopt` },
+    demo: "https://cacheopt-frontend.onrender.com/",
     accent: "#4ade80",
   },
   {
@@ -95,7 +100,10 @@ export const flagship: Project[] = [
     outcome:
       "A late write from a dead worker is rejected because its token is older than the current lease, so the effect lands exactly once. 22 tests run against a real Postgres, and the codebase stays clean under ruff and mypy --strict.",
     tech: ["Python", "Postgres", "Redis", "FastAPI", "OpenTelemetry"],
-    repo: { kind: "pending" },
+    // Repo is PRIVATE, so it 404s for anyone but the owner. Change kind to
+    // "public" the moment it is opened up; the url is already correct.
+    repo: { kind: "pending", url: `https://github.com/${GITHUB_HANDLE}/relay` },
+    demo: "https://relay-7b2o.onrender.com/",
     accent: "#f5b544",
   },
   {
@@ -114,7 +122,8 @@ export const flagship: Project[] = [
     outcome:
       "The same input always produces the same document, which makes the output reviewable and diffable. 96 tests hold that property in place.",
     tech: ["Deterministic pipeline", "PDF rendering"],
-    repo: { kind: "pending" },
+    // Also PRIVATE. Same deal: flip kind to "public" once it is opened up.
+    repo: { kind: "pending", url: `https://github.com/${GITHUB_HANDLE}/resume-tailor` },
     accent: "#A4F4FD",
   },
 ];

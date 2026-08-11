@@ -45,7 +45,7 @@ export function Navbar() {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: "easeOut" }}
-              className="text-sm font-medium text-white/80 transition-colors hover:text-white"
+              className="inline-flex items-center py-1 text-sm font-medium text-white/80 transition-colors hover:text-white"
             >
               {link.label}
             </motion.a>

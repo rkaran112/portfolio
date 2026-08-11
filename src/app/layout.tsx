@@ -40,7 +40,7 @@ function resolveSiteUrl(): string {
 
 const siteUrl = resolveSiteUrl();
 
-const title = "R.Karan · systems and performance engineering";
+const title = "R.Karan.Portfolio website";
 const description =
   "Projects by R.Karan, each written up as a problem, an approach and an outcome: cost-based cache routing in cacheopt, a million-row virtualized grid in lattice, and exactly-once side effects in relay.";
 

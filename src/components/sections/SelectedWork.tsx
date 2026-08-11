@@ -7,9 +7,13 @@ import { flagship, type Project } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+const outLink =
+  "inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 text-[11px] text-white/75 transition-colors hover:border-white/35 hover:text-white";
+
 /**
- * Main page carries key points only. The whole card is the target, so a reader
- * who wants the reasoning gets it in one click on /projects/<slug>.
+ * Main page carries key points only; the write-up lives on /projects/<slug>.
+ * The external links sit outside the card Link because an anchor cannot be
+ * nested inside another anchor.
  */
 function Card({ project, index }: { project: Project; index: number }) {
   return (
@@ -18,11 +22,11 @@ function Card({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.6, delay: (index % 2) * 0.08, ease: EASE }}
-      className="liquid-glass hover-lift group relative h-full rounded-2xl border border-transparent hover:border-white/20"
+      className="liquid-glass hover-lift group relative flex h-full flex-col rounded-2xl border border-transparent hover:border-white/20"
     >
       <Link
         href={`/projects/${project.slug}`}
-        className="relative flex h-full flex-col p-6 focus-visible:outline-none"
+        className="relative flex flex-1 flex-col px-6 pt-6"
       >
         <div className="flex items-center gap-2.5">
           <span
@@ -65,13 +69,31 @@ function Card({ project, index }: { project: Project; index: number }) {
         </div>
 
         <span
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium"
+          className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium"
           style={{ color: project.accent }}
         >
           Read the full write-up
           <ArrowRight className="nudge h-4 w-4" />
         </span>
       </Link>
+
+      <div className="flex flex-wrap gap-2 px-6 pt-4 pb-6">
+        {project.demo ? (
+          <a href={project.demo} target="_blank" rel="noreferrer noopener" className={outLink}>
+            Live demo ↗<span className="sr-only">{` for ${project.name}`}</span>
+          </a>
+        ) : null}
+        {project.repo.kind === "public" ? (
+          <a
+            href={project.repo.url}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={outLink}
+          >
+            Source ↗<span className="sr-only">{` for ${project.name}`}</span>
+          </a>
+        ) : null}
+      </div>
     </motion.div>
   );
 }
