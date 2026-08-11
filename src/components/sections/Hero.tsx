@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { GhostButton, PrimaryButton, gradientStyle } from "@/components/aura/Primitives";
-import { EMAIL, GITHUB_URL, intro, roles } from "@/lib/content";
+import { PrimaryButton, gradientStyle } from "@/components/aura/Primitives";
+import { GITHUB_URL, intro, roles } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -58,8 +58,8 @@ export function Hero() {
         transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
         className="mt-10 flex flex-wrap items-center justify-center gap-3"
       >
+        {/* Repo only. Contact lives once, in the closing section. */}
         <PrimaryButton href={GITHUB_URL} label="View the code" />
-        <GhostButton label="Get in touch" href={`mailto:${EMAIL}`} />
       </motion.div>
     </section>
   );

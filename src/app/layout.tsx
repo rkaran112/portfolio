@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Martian_Mono } from "next/font/google";
 import { Backdrop, NoiseFilter } from "@/components/aura/Backdrop";
+import { Navbar } from "@/components/sections/Navbar";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import "./globals.css";
 
@@ -83,8 +84,20 @@ export default function RootLayout({
         <div className="relative min-h-screen overflow-x-clip bg-[#0c0c0c] text-white">
           <Backdrop />
           <NoiseFilter />
+          {/* Landmarks live here so every route gets them: skip link, header,
+              main, footer. The nav sits in the layout so the project detail
+              pages are navigable too, not just reachable by the back link. */}
           <div className="relative z-40">
-            {children}
+            <a
+              href="#content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:text-black"
+            >
+              Skip to content
+            </a>
+            <header>
+              <Navbar />
+            </header>
+            <main id="content">{children}</main>
             <SiteFooter />
           </div>
         </div>

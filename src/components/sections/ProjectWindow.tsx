@@ -81,38 +81,23 @@ export function ProjectWindow() {
                 );
               })}
             </nav>
-          </div>
-
-          {/* Live demo */}
-          <div className="col-span-12 border-white/10 p-5 md:col-span-7 lg:col-span-6 lg:border-r">
-            <ProjectDemo key={active.slug} slug={active.slug} accent={active.accent} />
-          </div>
-
-          {/* Orientation, not the full write-up. That lives further down. */}
-          <div className="col-span-12 p-5 md:col-span-5 lg:col-span-3">
-            <p className="text-sm leading-[1.6] text-white/85">{active.hook}</p>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              {active.tech.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/10 px-2.5 py-1 text-[10px] text-white/70"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
 
             <Link
-              href={`/projects/${active.slug}`}
-              className="group mt-6 inline-flex items-center gap-1.5 text-xs transition-colors"
+              href={`/projects/${activeSlug}`}
+              className="group mt-3 inline-flex items-center gap-1.5 px-2.5 py-2 text-xs"
               style={{ color: active.accent }}
             >
-              Problem, approach, outcome
+              Full write-up
               <span aria-hidden className="nudge">
                 →
               </span>
             </Link>
+          </div>
+
+          {/* Live demo. The hook and tech chips used to sit in a third pane
+              here, but the card for this project repeats both a screen below. */}
+          <div className="col-span-12 p-5 lg:col-span-9">
+            <ProjectDemo key={active.slug} slug={active.slug} accent={active.accent} />
           </div>
         </div>
       </motion.div>

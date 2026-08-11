@@ -37,10 +37,10 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   ];
 
   return (
-    <article className="mx-auto max-w-page px-6 pt-8 pb-24 sm:px-10">
+    <article className="mx-auto max-w-page px-6 pt-4 pb-24 sm:px-10">
       <Link
         href="/#benchmarks"
-        className="group inline-flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-white"
+        className="group inline-flex items-center gap-2 py-1.5 text-sm text-white/65 transition-colors hover:text-white"
       >
         <ArrowLeft className="nudge nudge-back h-4 w-4" />
         Back to the work

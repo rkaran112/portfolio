@@ -1,54 +1,90 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Menu } from "lucide-react";
-import { PrimaryButton } from "@/components/aura/Primitives";
-import { GITHUB_URL } from "@/lib/content";
+import { Menu, X } from "lucide-react";
 
+/**
+ * Links are absolute rather than bare hashes, so the nav works from the project
+ * detail pages too, not just the home page.
+ */
 const LINKS = [
-  { label: "Demos", href: "#work" },
-  { label: "Projects", href: "#benchmarks" },
-  { label: "Stack", href: "#stack" },
-  { label: "Background", href: "#background" },
-  { label: "Contact", href: "#contact" },
+  { label: "Demos", href: "/#work" },
+  { label: "Projects", href: "/#benchmarks" },
+  { label: "Background", href: "/#background" },
+  { label: "Also built", href: "/#also-built" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <motion.nav
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative mx-auto flex max-w-page items-center justify-end px-6 py-5 sm:px-10"
+      className="relative mx-auto max-w-page px-6 py-5 sm:px-10"
+      aria-label="Primary"
     >
-      {/* No wordmark: the hero states the name a moment later. Links stay
-          optically centred by taking them out of the flex flow. */}
-      <div className="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex">
-        {LINKS.map((link, i) => (
-          <motion.a
-            key={link.label}
-            href={link.href}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: "easeOut" }}
-            className="text-sm font-medium text-white/80 transition-colors hover:text-white"
-          >
-            {link.label}
-          </motion.a>
-        ))}
+      <div className="flex items-center justify-center">
+        <div className="hidden gap-8 md:flex">
+          {LINKS.map((link, i) => (
+            <motion.a
+              key={link.label}
+              href={link.href}
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: "easeOut" }}
+              className="text-sm font-medium text-white/80 transition-colors hover:text-white"
+            >
+              {link.label}
+            </motion.a>
+          ))}
+        </div>
+
+        {/* A real disclosure. This used to be a Menu icon that just jumped to
+            the work, leaving every other section unreachable on a phone. */}
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="absolute right-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:bg-white/10 sm:right-10 md:hidden"
+        >
+          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
       </div>
 
-      <div className="hidden md:block">
-        <PrimaryButton href={GITHUB_URL} label="View the code" />
-      </div>
-
-      <a
-        href="#work"
-        aria-label="Jump to the work"
-        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 md:hidden"
+      <div
+        id="mobile-nav"
+        hidden={!open}
+        className="liquid-glass mt-4 rounded-2xl p-2 md:hidden"
       >
-        <Menu className="h-4 w-4 text-white" />
-      </a>
+        <ul>
+          {LINKS.map((link) => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block rounded-lg px-4 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </motion.nav>
   );
 }
