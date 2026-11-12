@@ -15,12 +15,20 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   "resume-tailor": FileText,
 };
 
+/** Only the projects that have an in-page demo. The rest link to a write-up. */
+const withDemo = flagship.filter((project) => project.instrument);
+
 export function ProjectWindow() {
-  const [activeSlug, setActiveSlug] = useState(flagship[0].slug);
-  const active = flagship.find((project) => project.slug === activeSlug) ?? flagship[0];
+  const [activeSlug, setActiveSlug] = useState(withDemo[0].slug);
+  const active = withDemo.find((project) => project.slug === activeSlug) ?? withDemo[0];
 
   return (
-    <section id="work" className="mx-auto max-w-page px-6 sm:px-10 py-16 md:py-24">
+    <section id="demos" className="mx-auto max-w-page px-6 sm:px-10 py-16 md:py-24">
+      <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">See a few of them run</h2>
+      <p className="mt-4 mb-10 max-w-lg text-base text-white/65">
+        Small in-page demos for five of the projects. Each write-up links to the real app
+        and the source.
+      </p>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -43,10 +51,10 @@ export function ProjectWindow() {
           {/* Project picker */}
           <div className="col-span-12 border-white/10 bg-black/30 p-3 lg:col-span-3 lg:border-r">
             <p className="px-2 pt-1 pb-3 text-[10px] tracking-widest text-white/60 uppercase">
-              Pick a project to run its demo
+              Pick one to run its demo
             </p>
             <nav className="flex gap-1.5 overflow-x-auto pb-1 lg:block lg:space-y-1.5 lg:overflow-visible lg:pb-0">
-              {flagship.map((project) => {
+              {withDemo.map((project) => {
                 const Icon = ICONS[project.slug] ?? LayoutGrid;
                 const isActive = project.slug === activeSlug;
                 return (
@@ -88,7 +96,7 @@ export function ProjectWindow() {
               className="group mt-3 inline-flex items-center gap-1.5 px-2.5 py-2 text-xs"
               style={{ color: active.accent }}
             >
-              Full write-up
+              How I built it
               <span aria-hidden className="nudge">
                 →
               </span>

@@ -16,12 +16,13 @@ export function FinalCTA() {
       >
         <div className="relative">
           <h2 className="text-4xl leading-[1.02] font-semibold tracking-tight md:text-6xl">
-            Want the long version?
+            Let&rsquo;s talk.
           </h2>
 
           <p className="mx-auto mt-6 max-w-md text-sm leading-[1.7] text-white/75">
-            Happy to talk through what was tried first, and where each project still falls
-            short.
+            I&rsquo;m happy to walk through any of these: what I tried first, what broke, and
+            what I&rsquo;d do differently now. If you have an internship or a junior role in
+            mind, I&rsquo;d love to hear about it.
           </p>
 
           {/* One action. The address, LinkedIn and repo all sit in the footer

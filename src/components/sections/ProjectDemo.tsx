@@ -21,7 +21,7 @@ export function ProjectDemo({ slug, accent }: { slug: string; accent: string }) 
     case "quorum":
       return <TestTicks count={147} label="Test suite, cluster in-process" accent={accent} />;
     case "resume-tailor":
-      return <TestTicks count={96} label="Test suite" accent={accent} />;
+      return <TestTicks count={84} label="Test suite" accent={accent} />;
     default:
       return (
         <p className="text-sm text-white/60">

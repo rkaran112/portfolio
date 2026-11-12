@@ -1,18 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
+import { NAME } from "@/lib/content";
 
 /**
  * Links are absolute rather than bare hashes, so the nav works from the project
  * detail pages too, not just the home page.
  */
 const LINKS = [
-  { label: "Demos", href: "/#work" },
-  { label: "Projects", href: "/#benchmarks" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Demos", href: "/#demos" },
   { label: "Background", href: "/#background" },
-  { label: "Also built", href: "/#also-built" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -36,7 +38,15 @@ export function Navbar() {
       className="relative mx-auto max-w-page px-6 py-5 sm:px-10"
       aria-label="Primary"
     >
-      <div className="flex items-center justify-center">
+      <div className="flex min-h-10 items-center justify-between">
+        {/* A name, not a logo: this is a person's site. */}
+        <Link
+          href="/#top"
+          className="inline-flex items-center py-1 text-sm font-semibold text-white transition-colors hover:text-white/80"
+        >
+          {NAME}
+        </Link>
+
         <div className="hidden gap-8 md:flex">
           {LINKS.map((link, i) => (
             <motion.a
@@ -60,7 +70,7 @@ export function Navbar() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="absolute right-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:bg-white/10 sm:right-10 md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:bg-white/10 md:hidden"
         >
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>

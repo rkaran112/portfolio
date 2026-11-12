@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "R.Karan, systems and performance engineering";
+export const alt = "R. Karan, software and data engineering";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", gap: 12 }}>
-          {["#00d2ff", "#4ade80", "#f5b544", "#b39dff", "#a4f4fd"].map((accent) => (
+          {["#ff8a65", "#38bdf8", "#facc15", "#2dd4bf", "#b39dff"].map((accent) => (
             <div
               key={accent}
               style={{ width: 40, height: 6, borderRadius: 3, background: accent }}
@@ -34,15 +34,15 @@ export default function Image() {
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 108, fontWeight: 700, letterSpacing: -4, lineHeight: 1 }}>
-            R.Karan
+            Hi, I&rsquo;m Karan.
           </div>
           <div style={{ fontSize: 34, color: "rgba(255,255,255,0.65)", marginTop: 28 }}>
-            SDE · Full-stack
+            I build data pipelines and backend systems.
           </div>
         </div>
 
         <div style={{ fontSize: 26, color: "rgba(255,255,255,0.5)" }}>
-          lattice · cacheopt · relay · quorum · resume-tailor
+          MCA student at CHRIST, Bengaluru · Class of 2027
         </div>
       </div>
     ),

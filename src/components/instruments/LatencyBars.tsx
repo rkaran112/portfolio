@@ -16,7 +16,7 @@ export function LatencyBars({ accent = "#00d2ff" }: { accent?: string }) {
 
   return (
     <div ref={ref}>
-      <p className="mb-4 text-xs text-white/70">p95 latency · 10M rows</p>
+      <p className="mb-4 text-xs text-white/70">p95 latency · 12M-row table</p>
 
       <div className="space-y-3">
         {[
@@ -51,7 +51,7 @@ export function LatencyBars({ accent = "#00d2ff" }: { accent?: string }) {
           unit="×"
           unitClassName="text-white/60"
         />{" "}
-        throughput
+        faster overall
       </p>
     </div>
   );

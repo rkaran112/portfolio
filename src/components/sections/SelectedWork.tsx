@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { flagship, type Project } from "@/lib/content";
+import { flagship, groupLabels, type Project, type ProjectGroup } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const GROUPS: ProjectGroup[] = ["data", "systems"];
 
 const outLink =
   "inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 text-[11px] text-white/75 transition-colors hover:border-white/35 hover:text-white";
@@ -34,19 +35,15 @@ function Card({ project, index }: { project: Project; index: number }) {
             className="h-2 w-2 rounded-full"
             style={{ background: project.accent }}
           />
-          <span className="text-[11px] tracking-widest text-white/55 uppercase">
-            {project.repo.kind === "public" ? "Public repo" : "Repo pending"}
-          </span>
+          <h4 className="font-num text-xl font-semibold tracking-tight md:text-2xl">
+            {project.name}
+          </h4>
         </div>
-
-        <h3 className="font-num mt-4 text-2xl font-semibold tracking-tight md:text-3xl">
-          {project.name}
-        </h3>
-        <p className="mt-2 text-sm text-white/70">{project.hook}</p>
+        <p className="mt-3 text-base leading-[1.5] text-white/85">{project.hook}</p>
 
         <ul className="mt-5 space-y-2.5">
           {project.keyPoints.map((point) => (
-            <li key={point} className="flex gap-2.5 text-sm leading-[1.55] text-white/80">
+            <li key={point} className="flex gap-2.5 text-sm leading-[1.55] text-white/75">
               <span
                 aria-hidden
                 className="mt-[8px] h-1 w-1 shrink-0 rounded-full"
@@ -72,7 +69,7 @@ function Card({ project, index }: { project: Project; index: number }) {
           className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium"
           style={{ color: project.accent }}
         >
-          Read the full write-up
+          Read how I built it
           <ArrowRight className="nudge h-4 w-4" />
         </span>
       </Link>
@@ -100,7 +97,7 @@ function Card({ project, index }: { project: Project; index: number }) {
 
 export function SelectedWork() {
   return (
-    <section id="benchmarks" className="mx-auto max-w-page px-6 py-20 sm:px-10 md:py-28">
+    <section id="projects" className="mx-auto max-w-page px-6 py-20 sm:px-10 md:py-28">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -108,17 +105,29 @@ export function SelectedWork() {
         transition={{ duration: 0.7, ease: EASE }}
         className="text-3xl font-semibold tracking-tight md:text-5xl"
       >
-        Selected work
+        Things I&rsquo;ve built
       </motion.h2>
-      <p className="mt-4 max-w-md text-base text-white/65">
-        Click any project for the problem, the approach and the outcome in full.
+      <p className="mt-4 max-w-lg text-base text-white/65">
+        Each one links to a short write-up: what the problem was, what I did, and what I
+        measured.
       </p>
 
-      <div className="mt-12 grid gap-5 md:grid-cols-2">
-        {flagship.map((project, i) => (
-          <Card key={project.slug} project={project} index={i} />
-        ))}
-      </div>
+      {GROUPS.map((group) => {
+        const projects = flagship.filter((project) => project.group === group);
+        return (
+          <div key={group} className="mt-14">
+            <h3 className="text-xs tracking-[0.18em] text-[#a4f4fd] uppercase">
+              {groupLabels[group].title}
+            </h3>
+            <p className="mt-2 max-w-lg text-sm text-white/60">{groupLabels[group].note}</p>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {projects.map((project, i) => (
+                <Card key={project.slug} project={project} index={i} />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </section>
   );
 }

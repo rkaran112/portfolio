@@ -1,3 +1,4 @@
+import { About } from "@/components/sections/About";
 import { AlsoBuilt } from "@/components/sections/AlsoBuilt";
 import { Background } from "@/components/sections/Background";
 import { FinalCTA } from "@/components/sections/FinalCTA";
@@ -9,8 +10,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ProjectWindow />
+      <About />
       <SelectedWork />
+      <ProjectWindow />
       <Background />
       <AlsoBuilt />
       <FinalCTA />

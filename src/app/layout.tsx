@@ -5,8 +5,7 @@ import { Navbar } from "@/components/sections/Navbar";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import "./globals.css";
 
-// Stand-in for the PolySans optical-size family. One typeface, weight 400 for
-// body and display, 600 where PolySans-Bulky would carry links and CTAs.
+// One typeface for everything except numbers.
 const sans = Inter({
   variable: "--font-sans-family",
   subsets: ["latin"],
@@ -40,29 +39,29 @@ function resolveSiteUrl(): string {
 
 const siteUrl = resolveSiteUrl();
 
-const title = "R.Karan.Portfolio website";
+const title = "R. Karan · Software and data engineering";
 const description =
-  "Projects by R.Karan, each written up as a problem, an approach and an outcome: Raft from scratch in quorum, a million-row virtualized grid in lattice, cost-based cache routing in cacheopt, and exactly-once side effects in relay.";
+  "I'm Karan, an MCA student at CHRIST, Bengaluru. I build data pipelines and backend systems, then try to break them. Here are the projects, each with what I did and what I measured.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
-  applicationName: "R.Karan",
-  authors: [{ name: "R.Karan", url: "https://github.com/rkaran112" }],
+  applicationName: "R. Karan",
+  authors: [{ name: "R. Karan", url: "https://github.com/rkaran112" }],
   keywords: [
+    "R. Karan",
+    "data engineering",
     "software engineer",
-    "performance engineering",
+    "data pipelines",
     "distributed systems",
-    "distributed consensus",
-    "full-stack",
     "portfolio",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "R.Karan",
+    siteName: "R. Karan",
     title,
     description,
     locale: "en_US",

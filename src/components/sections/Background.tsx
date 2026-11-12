@@ -89,7 +89,7 @@ export function Background() {
           transition={{ duration: 0.7, ease: EASE }}
           className="text-3xl font-semibold tracking-tight md:text-4xl"
         >
-          Background
+          Where I&rsquo;ve been
         </motion.h2>
 
         <div className="mt-12 grid gap-12 md:grid-cols-2 md:gap-16">

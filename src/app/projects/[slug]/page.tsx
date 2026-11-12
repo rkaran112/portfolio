@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { ProjectDemo } from "@/components/sections/ProjectDemo";
-import { flagship } from "@/lib/content";
+import { NAME, flagship } from "@/lib/content";
 
 export function generateStaticParams() {
   return flagship.map((project) => ({ slug: project.slug }));
@@ -16,7 +17,7 @@ export async function generateMetadata(
   const project = flagship.find((entry) => entry.slug === slug);
   if (!project) return {};
 
-  const title = `${project.name} · R.Karan`;
+  const title = `${project.name} · ${NAME}`;
   return {
     title,
     description: project.hook,
@@ -31,19 +32,19 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   if (!project) notFound();
 
   const sections = [
-    { term: "Problem", detail: project.problem },
-    { term: "Approach", detail: project.approach },
-    { term: "Outcome", detail: project.outcome },
+    { term: "The problem", detail: project.problem },
+    { term: "What I did", detail: project.approach },
+    { term: "What came out of it", detail: project.outcome },
   ];
 
   return (
     <article className="mx-auto max-w-page px-6 pt-4 pb-24 sm:px-10">
       <Link
-        href="/#benchmarks"
+        href="/#projects"
         className="group inline-flex items-center gap-2 py-1.5 text-sm text-white/65 transition-colors hover:text-white"
       >
         <ArrowLeft className="nudge nudge-back h-4 w-4" />
-        Back to the work
+        Back to my projects
       </Link>
 
       <header className="mt-12 border-b border-white/10 pb-10">
@@ -122,12 +123,36 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
           ))}
         </div>
 
-        <aside className="liquid-glass h-fit rounded-2xl p-6 lg:sticky lg:top-10">
-          <p className="text-xs tracking-widest text-white/55 uppercase">Live demo</p>
-          <div className="mt-5">
-            <ProjectDemo slug={project.slug} accent={project.accent} />
-          </div>
-        </aside>
+        {project.instrument || project.image ? (
+          <aside className="h-fit space-y-6 lg:sticky lg:top-10">
+            {project.instrument ? (
+              <div className="liquid-glass rounded-2xl p-6">
+                <p className="text-xs tracking-widest text-white/55 uppercase">Small demo</p>
+                <div className="mt-5">
+                  <ProjectDemo slug={project.slug} accent={project.accent} />
+                </div>
+              </div>
+            ) : null}
+            {project.image ? (
+              <figure className="liquid-glass rounded-2xl p-3">
+                {/* Tall screenshots are cropped from the top rather than shrunk. */}
+                <div className="max-h-[30rem] overflow-hidden rounded-xl">
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    className="h-auto w-full"
+                  />
+                </div>
+                <figcaption className="px-2 pt-3 pb-1 text-xs text-white/55">
+                  From the project itself.
+                </figcaption>
+              </figure>
+            ) : null}
+          </aside>
+        ) : null}
       </div>
     </article>
   );
