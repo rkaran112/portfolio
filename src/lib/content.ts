@@ -200,16 +200,16 @@ export const flagship: Project[] = [
     group: "systems",
     hook: "A train-seat booking API that shows three ways to stop two people booking the same seat, with the numbers for each.",
     keyPoints: [
-      "The naive version sold one seat to 17 people when 1,000 booked at once",
+      "The naive version sold one seat to 18 people when 1,000 booked at once",
       "A database row lock and a 5-minute Redis hold each sold it exactly once",
-      "The Redis hold handled about 2.5 times the requests per second of the row lock",
+      "When everyone wants one seat, the Redis hold served about 1.6 times the requests per second of the row lock",
     ],
     problem:
       "At 10 am on Tatkal day, thousands of people click the same seat at the same moment. The obvious code reads the seat, checks that it is free, then books it, and between those steps another request can slip in and book the same seat.",
     approach:
-      "I built the booking three ways: the naive version, a database row lock (SELECT ... FOR UPDATE), and a Redis hold that claims the seat for five minutes with one atomic command while the person pays, as the real site does. A load test fires 1,000 people at the same instant, with one warm-up race and three recorded races per version. GitHub Actions fails the build if either correct version ever sells a seat twice.",
+      "I built the booking three ways: the naive version, a database row lock (SELECT ... FOR UPDATE), and a Redis hold that claims the seat for five minutes with one atomic command while the person pays, as the real site does. A load test fires 1,000 people at the same instant, with one warm-up race and five recorded races per version. GitHub Actions fails the build if either correct version ever sells a seat twice.",
     outcome:
-      "When all 1,000 wanted one seat, the naive version sold it 17 times (median of three runs), and it sold 78 tickets for 72 seats when people spread out. The row lock and the Redis hold sold exactly 1 and exactly 72, in every run. The Redis hold handled 298 requests per second against 120 for the row lock. It all ran on one laptop, so compare the versions with each other, not with a real server.",
+      "When all 1,000 wanted one seat, the naive version sold it 18 times (median of five runs), and it sold 99 tickets for 72 seats when people spread out. The row lock and the Redis hold sold exactly 1 and exactly 72, in all 16 runs each. When everyone wanted the same seat, the Redis hold handled 575 requests per second against 350 for the row lock, and was faster in every run. When people spread out, the three were close and the order changed between measurement sessions. It all ran on one laptop whose speed varied about threefold between sessions, so compare the versions with each other, not with a real server.",
     tech: ["Java", "Spring Boot", "PostgreSQL", "Redis", "React", "Docker"],
     repo: repo("tatkal"),
     accent: "#fb7185",
