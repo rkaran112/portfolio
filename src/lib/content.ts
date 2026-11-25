@@ -212,6 +212,7 @@ export const flagship: Project[] = [
       "When all 1,000 wanted one seat, the naive version sold it 18 times (median of five runs), and it sold 99 tickets for 72 seats when people spread out. The row lock and the Redis hold sold exactly 1 and exactly 72, in all 16 runs each. When everyone wanted the same seat, the Redis hold handled 575 requests per second against 350 for the row lock, and was faster in every run. When people spread out, the three were close and the order changed between measurement sessions. It all ran on one laptop whose speed varied about threefold between sessions, so compare the versions with each other, not with a real server.",
     tech: ["Java", "Spring Boot", "PostgreSQL", "Redis", "React", "Docker"],
     repo: repo("tatkal"),
+    demo: "http://3.107.106.233",
     accent: "#fb7185",
   },
   {
