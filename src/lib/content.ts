@@ -298,6 +298,7 @@ export const flagship: Project[] = [
       "A late write from a dead worker is rejected because its token is older than the current lease, so the effect lands exactly once. 22 tests run against a real Postgres, and 100 of 100 failure sessions held.",
     tech: ["Python", "PostgreSQL", "Redis", "FastAPI", "OpenTelemetry"],
     repo: repo("relay"),
+    demo: "https://relay-7b2o.onrender.com/",
     image: {
       src: "/projects/relay-dashboard.png",
       alt: "relay dashboard: 230 jobs succeeded, 9 in the dead letter queue with replay buttons",
