@@ -46,7 +46,7 @@ export const skills: SkillGroup[] = [
     items: ["Batch ELT", "Streaming with Kafka / Redpanda", "Star schema", "Data quality checks"],
   },
   { label: "Apps", items: ["FastAPI", "React", "Streamlit", "Spring Boot"] },
-  { label: "Tooling", items: ["Docker", "Git", "GitHub Actions", "pytest", "Playwright"] },
+  { label: "Tooling", items: ["Docker", "AWS", "Git", "GitHub Actions", "pytest", "Playwright"] },
 ];
 
 export type RepoState =
@@ -207,10 +207,10 @@ export const flagship: Project[] = [
     problem:
       "At 10 am on Tatkal day, thousands of people click the same seat at the same moment. The obvious code reads the seat, checks that it is free, then books it, and between those steps another request can slip in and book the same seat.",
     approach:
-      "I built the booking three ways: the naive version, a database row lock (SELECT ... FOR UPDATE), and a Redis hold that claims the seat for five minutes with one atomic command while the person pays, as the real site does. A load test fires 1,000 people at the same instant, with one warm-up race and five recorded races per version. GitHub Actions fails the build if either correct version ever sells a seat twice.",
+      "I built the booking three ways: the naive version, a database row lock (SELECT ... FOR UPDATE), and a Redis hold that claims the seat for five minutes with one atomic command while the person pays, as the real site does. A load test fires 1,000 people at the same instant, with one warm-up race and five recorded races per version. GitHub Actions fails the build if either correct version ever sells a seat twice. I deployed it on a 1 GB AWS EC2 server: GitHub Actions publishes the Docker images, and one script sets the server up.",
     outcome:
       "When all 1,000 wanted one seat, the naive version sold it 18 times (median of five runs), and it sold 99 tickets for 72 seats when people spread out. The row lock and the Redis hold sold exactly 1 and exactly 72, in all 16 runs each. When everyone wanted the same seat, the Redis hold handled 575 requests per second against 350 for the row lock, and was faster in every run. When people spread out, the three were close and the order changed between measurement sessions. It all ran on one laptop whose speed varied about threefold between sessions, so compare the versions with each other, not with a real server.",
-    tech: ["Java", "Spring Boot", "PostgreSQL", "Redis", "React", "Docker"],
+    tech: ["Java", "Spring Boot", "PostgreSQL", "Redis", "React", "Docker", "AWS EC2"],
     repo: repo("tatkal"),
     demo: "http://3.107.106.233",
     accent: "#fb7185",
