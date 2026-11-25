@@ -1,10 +1,13 @@
-"use client";
-
-import { motion } from "motion/react";
+import type { CSSProperties } from "react";
 import { PrimaryButton } from "@/components/aura/Primitives";
 import { EMAIL, FIRST_NAME, intro, roles, status } from "@/lib/content";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+/**
+ * The entrance is a CSS animation, not a JS one, so the hero paints as soon
+ * as the stylesheet arrives. It used to wait for React to hydrate, which left
+ * the top of the page blank on a slow phone.
+ */
+const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
 export function Hero() {
   return (
@@ -12,48 +15,32 @@ export function Hero() {
       id="top"
       className="flex flex-col items-center px-6 pt-16 pb-20 text-center md:pt-28"
     >
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
-        className="text-xs tracking-widest text-white/80 uppercase"
-      >
+      <p className="rise text-xs tracking-widest text-white/80 uppercase" style={delay(100)}>
         {roles}
-      </motion.p>
+      </p>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
-        className="mt-7 max-w-4xl text-5xl leading-[0.95] font-semibold tracking-tight md:text-7xl"
+      <h1
+        className="rise mt-7 max-w-4xl text-5xl leading-[0.95] font-semibold tracking-tight md:text-7xl"
+        style={delay(200)}
       >
         <span className="text-white">Hi, I&rsquo;m </span>
         <span className="text-[#a4f4fd]">{FIRST_NAME}.</span>
-      </motion.h1>
+      </h1>
 
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
-        className="mt-8 max-w-xl text-lg leading-[1.55] text-white/90 md:text-xl"
+      <p
+        className="rise mt-8 max-w-xl text-lg leading-[1.55] text-balance text-white/90 md:text-xl"
+        style={delay(300)}
       >
         {intro}
-      </motion.p>
+      </p>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
-        className="mt-5 text-sm text-white/70"
-      >
+      <p className="rise mt-5 text-sm text-balance text-white/70" style={delay(380)}>
         {status}
-      </motion.p>
+      </p>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
-        className="mt-10 flex flex-wrap items-center justify-center gap-3"
+      <div
+        className="rise mt-10 flex flex-wrap items-center justify-center gap-3"
+        style={delay(460)}
       >
         <PrimaryButton href="/#projects" label="See what I've built" />
         <a
@@ -62,7 +49,7 @@ export function Hero() {
         >
           Say hello
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 }

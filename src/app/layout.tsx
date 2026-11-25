@@ -80,6 +80,11 @@ export default function RootLayout({
       <body>
         {/* overflow-x-clip rather than -hidden: `hidden` turns this element into
             a scroll container, which breaks smooth scrolling and scroll-margin. */}
+        {/* Sections fade in as they scroll into view, which needs JavaScript.
+            Without it they would stay invisible, so show them as they are. */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <div className="relative min-h-screen overflow-x-clip bg-[#0c0c0c] text-white">
           <Backdrop />
           <NoiseFilter />

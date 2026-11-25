@@ -208,6 +208,41 @@
 }
 
 /* --------------------------------------------------------------------------
+   Entrance for above-the-fold content. Pure CSS, so it plays on first paint
+   instead of waiting for JavaScript; the reduced-motion block below cuts it
+   to an instant.
+   -------------------------------------------------------------------------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 700ms var(--ease-out-quint) both;
+}
+
+.drop-in {
+  animation: drop-in 500ms var(--ease-out-quint) both;
+}
+
+/* --------------------------------------------------------------------------
    Shared interaction states. Every hoverable surface uses these, so a card, a
    picker button and a tag all lift by the same amount over the same duration.
    -------------------------------------------------------------------------- */

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { NAME } from "@/lib/content";
 
@@ -31,11 +30,8 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative mx-auto max-w-page px-6 py-5 sm:px-10"
+    <nav
+      className="drop-in relative mx-auto max-w-page px-6 py-5 sm:px-10"
       aria-label="Primary"
     >
       <div className="flex min-h-10 items-center justify-between">
@@ -48,17 +44,14 @@ export function Navbar() {
         </Link>
 
         <div className="hidden gap-8 md:flex">
-          {LINKS.map((link, i) => (
-            <motion.a
+          {LINKS.map((link) => (
+            <a
               key={link.label}
               href={link.href}
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: "easeOut" }}
               className="inline-flex items-center py-1 text-sm font-medium text-white/80 transition-colors hover:text-white"
             >
               {link.label}
-            </motion.a>
+            </a>
           ))}
         </div>
 
@@ -95,6 +88,6 @@ export function Navbar() {
           ))}
         </ul>
       </div>
-    </motion.nav>
+    </nav>
   );
 }

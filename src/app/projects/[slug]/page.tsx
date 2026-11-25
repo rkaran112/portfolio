@@ -18,11 +18,13 @@ export async function generateMetadata(
   if (!project) return {};
 
   const title = `${project.name} · ${NAME}`;
+  // Twitter is set here too: left out, it inherited the home page's title.
   return {
     title,
     description: project.hook,
     alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: { title, description: project.hook, url: `/projects/${project.slug}` },
+    openGraph: { type: "article", title, description: project.hook, url: `/projects/${project.slug}` },
+    twitter: { card: "summary_large_image", title, description: project.hook },
   };
 }
 
@@ -36,6 +38,8 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
     { term: "What I did", detail: project.approach },
     { term: "What came out of it", detail: project.outcome },
   ];
+
+  const hasAside = Boolean(project.instrument || project.image);
 
   return (
     <article className="mx-auto max-w-page px-6 pt-4 pb-24 sm:px-10">
@@ -106,7 +110,15 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
         </div>
       </header>
 
-      <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
+      {/* Two columns only when there is something for the second one; a
+          write-up with no demo or screenshot used to sit beside an empty half. */}
+      <div
+        className={
+          hasAside
+            ? "mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16"
+            : "mt-14"
+        }
+      >
         <div className="space-y-10">
           {sections.map((section) => (
             <section key={section.term}>
@@ -123,7 +135,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
           ))}
         </div>
 
-        {project.instrument || project.image ? (
+        {hasAside ? (
           <aside className="h-fit space-y-6 lg:sticky lg:top-10">
             {project.instrument ? (
               <div className="liquid-glass rounded-2xl p-6">
